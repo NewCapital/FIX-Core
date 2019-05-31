@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=FIX
+Comment=FIX P2P Cryptocurrency
+Comment[fr]=FIX, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=FIX, eşten eşe kriptografik sanal para birimi
+Exec=fix-qt %u
+Terminal=false
+Type=Application
+Icon=fix128
+MimeType=x-scheme-handler/fix;
+Categories=Office;Finance;

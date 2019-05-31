@@ -1,0 +1,158 @@
+/***************************** Global Qt Objects ***********************************************************/
+WalletFrame {
+  border-top: 0px solid #000;
+  background-color: rgb(35, 31, 32);
+  margin: 0;
+  padding: 0;
+}
+
+QDialog {
+  background-color: rgb(35, 31, 32);
+}
+
+QStackedWidget {
+  background-color: rgb(35, 31, 32);
+}
+
+QWidget {
+  background-color: rgb(35, 31, 32);
+}
+
+QStatusBar {
+  background-color: rgb(35, 31, 32);
+}
+
+QLineEdit, QTextEdit, QPlainTextEdit, QValidatedLineEdit {
+  background-color:rgb(70, 81, 86);
+  color:rgb(211, 215, 207);
+  border-width: 0px;
+  border: none;
+}
+
+QLabel {
+  color:rgb(211, 215, 207);
+}
+
+QRadioButton {
+  /* Radio Button Labels */
+  color:rgb(211, 215, 207);
+}
+
+QCheckBox {
+  /* Checkbox Labels */
+  color:rgb(211, 215, 207);
+}
+
+QDialogButtonBox, QToolButton, QPushButton {
+  background-color:rgb(29, 32, 35);
+  color:rgb(211, 215, 207);
+}
+
+QSpinBox {
+  background-color:rgb(70, 81, 86);
+  color:rgb(211, 215, 207);
+}
+/**************************** COIN CONTROL POPUP ****************************************/
+
+QDialog#CoinControlDialog QHeaderView::section:first {
+  /* Bug Fix: the number "1" displays in this table for some reason... */
+  color:rgb(211, 215, 207);
+  background-color:rgb(70, 81, 86);
+}
+
+QDialog#CoinControlDialog .CoinControlTreeWidget#treeWidget {
+  /* Coin Control Widget Container */
+  outline: 0;
+  background-color:rgb(70, 81, 86);
+  color:rgb(211, 215, 207);
+}
+
+/***************************** Menu ***********************************************************/
+QMenuBar {
+  background-color: rgb(35, 31, 32);
+  color: rgb(211, 215, 207);
+}
+
+QMenuBar::item {
+  background-color: rgb(35, 31, 32);
+  color: rgb(211, 215, 207);
+}
+
+QMenuBar::item:selected {
+  background-color: #1d2023;
+}
+
+QMenu {
+  background-color: rgb(35, 31, 32);
+  color: rgb(211, 215, 207);
+}
+
+QMenu::item {
+  color: rgb(211, 215, 207);
+}
+
+QMenu::item:selected {
+  background-color: #1d2023;
+  color: rgb(211, 215, 207);
+}
+
+/***************************** Toolbar ***********************************************************/
+
+QToolBar {
+  background-color: rgb(0, 0, 0);
+  padding: 5px;
+  margin: 0;
+  width: 70px;
+}
+
+QToolBar>QToolButton {
+  Alignment: left;
+  border-radius: 7px;
+  padding: 5px;
+  min-height: 2.5em;
+  color: #aaa;
+  width: 80px;
+  height: 70px;
+}
+
+QToolBar>QToolButton:checked {
+  background-color: rgb(35, 31, 32);
+  color: #fff;
+}
+
+QToolBar>QToolButton:hover {
+  background-color: rgb(35, 31, 32);
+  color: #fff;
+}
+
+QToolBar>QToolButton#ToolbarSpacer:hover: !selected {
+  background-color: rgb(71, 81, 91);
+}
+
+QToolBar>QToolButton:pressed {
+  background-color: rgb(71, 81, 91);
+  color: #fff;
+}
+
+/***************************** Progessbar ***********************************************************/
+
+QProgressBar {
+  color: #AAAAAA;
+  border: 0px solid grey;
+  border-radius: 5px;
+  background-color: rgb(35, 31, 32);
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+QProgressBar::chunk {
+  background-color: #000000;
+  width: 20px;
+}
+
+QLabel#progressBarLabel {
+  background-color: rgb(35, 31, 32);
+  color: #a58b60;
+  padding-left: 5px;
+  padding-right: 5px;
+}
