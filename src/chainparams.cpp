@@ -285,7 +285,19 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
 
-        devAddress = "XmQ5FfZzs76PTHRb2tXcLLsFBJ6A9EjbMV";
+        vSeeds.push_back(CDNSSeedData("18.228.216.158", "18.228.216.158")); //Brazil
+        vSeeds.push_back(CDNSSeedData("13.210.111.12", "13.210.111.12"));   //Australia
+        vSeeds.push_back(CDNSSeedData("46.19.210.197", "46.19.210.197"));   //Germany
+        vSeeds.push_back(CDNSSeedData("46.19.214.68", "46.19.214.68"));     //Singapore
+        vSeeds.push_back(CDNSSeedData("142.93.145.197", "142.93.145.197")); //Toronto
+        vSeeds.push_back(CDNSSeedData("159.65.84.118", "159.65.84.118"));   //London
+        vSeeds.push_back(CDNSSeedData("167.99.223.138", "167.99.223.138")); //Amsterdam
+        vSeeds.push_back(CDNSSeedData("68.183.161.44", "68.183.161.44"));   //San Fransisco
+        vSeeds.push_back(CDNSSeedData("46.19.212.68", "46.19.212.68"));     //LA
+        vSeeds.push_back(CDNSSeedData("46.19.213.68", "46.19.213.68"));     //Miami
+        vSeeds.push_back(CDNSSeedData("46.19.209.68", "46.19.209.68"));     //New York
+        
+        devAddress = "XiAHWrbngwovQPdtWzuehx4BL4dvCFKSW3";
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 76);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 137);
