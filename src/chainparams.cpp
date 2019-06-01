@@ -296,8 +296,9 @@ public:
         vSeeds.push_back(CDNSSeedData("46.19.212.68", "46.19.212.68"));     //LA
         vSeeds.push_back(CDNSSeedData("46.19.213.68", "46.19.213.68"));     //Miami
         vSeeds.push_back(CDNSSeedData("46.19.209.68", "46.19.209.68"));     //New York
-        
-        devAddress = "XiAHWrbngwovQPdtWzuehx4BL4dvCFKSW3";
+
+        devAddress = "XmQ5FfZzs76PTHRb2tXcLLsFBJ6A9EjbMV"; // old
+        // devAddress = "XiAHWrbngwovQPdtWzuehx4BL4dvCFKSW3"; //new
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 76);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 137);
