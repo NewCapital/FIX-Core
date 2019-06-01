@@ -326,7 +326,7 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
 
             // <FIX
             CAmount nDevReward = blockValue * .1;
-            if (pindexPrev->nHeight < (Params().NetworkID() == CBaseChainParams::MAIN)?10000:1000) nDevReward = 1 * COIN;
+            if (pindexPrev->nHeight < ((Params().NetworkID() == CBaseChainParams::MAIN)?10000:1000)) nDevReward = 1 * COIN;
             if (nDevReward > 0) {
                 CTxDestination destination = CBitcoinAddress(Params().DevAddress()).Get();
                 CScript DEV_SCRIPT = GetScriptForDestination(destination);
@@ -370,7 +370,7 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
 
             // <FIX
             CAmount nDevReward = blockValue * .1;
-            if (pindexPrev->nHeight < (Params().NetworkID() == CBaseChainParams::MAIN)?10000:1000) nDevReward = 1 * COIN;
+            if (pindexPrev->nHeight < ((Params().NetworkID() == CBaseChainParams::MAIN)?10000:1000)) nDevReward = 1 * COIN;
             if (nDevReward > 0) {
                 CTxDestination destination = CBitcoinAddress(Params().DevAddress()).Get();
                 CScript DEV_SCRIPT = GetScriptForDestination(destination);
