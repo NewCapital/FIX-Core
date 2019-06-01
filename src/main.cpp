@@ -1863,7 +1863,7 @@ int64_t GetBlockValue(int nHeight)
     // First block with initial pre-mine
     if (nHeight < 1) {
         nSubsidy = 500000000 * COIN;
-    } else if (nHeight < (Params().NetworkID() == CBaseChainParams::MAIN)?10000:1000)  {
+    } else if (nHeight < ((Params().NetworkID() == CBaseChainParams::MAIN)?10000:1000))  {
         nSubsidy = 3 * COIN;
     // Release 15220.70 Fix as a reward for each block
     // until max supply of 100 000 000 000 FIX will
@@ -1882,7 +1882,7 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
 {
     int64_t ret = 0;
 
-    if (nHeight < (Params().NetworkID() == CBaseChainParams::MAIN)?10000:1000)  {
+    if (nHeight < ((Params().NetworkID() == CBaseChainParams::MAIN)?10000:1000))  {
         ret = 1 * COIN;
     } else {
         ret = blockValue * .8;
@@ -2890,7 +2890,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     // <FIX
     if (pindex->pprev->nHeight >= 1) {
       CAmount devReward = nExpectedMint * .10;
-      if (pindex->pprev->nHeight < (Params().NetworkID() == CBaseChainParams::MAIN)?10000:1000) devReward = 1 * COIN;
+      if (pindex->pprev->nHeight < ((Params().NetworkID() == CBaseChainParams::MAIN)?10000:1000)) devReward = 1 * COIN;
       if (devReward > 0) {
         CTxDestination destination = CBitcoinAddress(Params().DevAddress()).Get();
         CScript DEV_SCRIPT = GetScriptForDestination(destination);

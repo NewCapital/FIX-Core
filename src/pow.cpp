@@ -41,7 +41,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
         int64_t nTargetTimespan = 60 * 40;
 
         // For accepting blocks before TargetSpacing change (block 19500)
-		    if (BlockLastSolved->nHeight < 2600) {
+		    if (BlockLastSolved->nHeight < 2000) {
 			       nTargetSpacing = 60;
 		    }
 
