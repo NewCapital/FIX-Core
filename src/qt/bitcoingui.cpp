@@ -870,7 +870,7 @@ void BitcoinGUI::gotoShopPage()
 
 void BitcoinGUI::gotoStatisticsPage()
 {
-    QDesktopServices::openUrl(QUrl("https://fix.network/", QUrl::TolerantMode));
+    QDesktopServices::openUrl(QUrl("https://explorer.fix.network", QUrl::TolerantMode));
     showStatisticsAction->setChecked(false);
 }
 void BitcoinGUI::gotoSignMessageTab(QString addr)
