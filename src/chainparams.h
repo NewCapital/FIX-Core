@@ -129,6 +129,7 @@ public:
 
     // <FIX
     std::string DevAddress() const { return devAddress; }
+    std::string DevAddressNew() const { return devAddressNew; }
     std::string GovAddress() const { return govAddress; }
     // FIX>
 protected:
@@ -196,6 +197,7 @@ protected:
 
     // <FIX
     std::string devAddress;
+    std::string devAddressNew;
     std::string govAddress;
     // FIX>
 };
