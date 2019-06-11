@@ -92,9 +92,9 @@ public:
     virtual const Checkpoints::CCheckpointData& Checkpoints() const = 0;
     int PoolMaxTransactions() const { return nPoolMaxTransactions; }
 
-    /** TWINS part **/
-    // bool isMasternodeCollateral(CAmount nValue) const { return (nValue == nTier1mCollateral || nValue == nTier5mCollateral || nValue == nTier10mCollateral || nValue == nTier20mCollateral || nValue == nTier100mCollateral); }
-    bool isMasternodeCollateral(CAmount nValue) const { return (nValue == nTier1mCollateral || nValue == nTier5mCollateral || nValue == nTier20mCollateral || nValue == nTier100mCollateral); }
+    /** FIX part **/
+    bool isMasternodeTierCollateral(CAmount nValue) const { return (nValue == nTier1mCollateral || nValue == nTier5mCollateral || nValue == nTier20mCollateral || nValue == nTier100mCollateral); }
+    bool isMasternodeBaseCollateral(CAmount nValue) const { return (nValue == nTier1mCollateral); }
     CAmount Tier1mCollateral() const { return nTier1mCollateral; }
     CAmount Tier1mProbability() const { return nTier1mProbability; }
     CAmount Tier5mCollateral() const { return nTier5mCollateral; }
@@ -167,7 +167,7 @@ protected:
     int nMaturity;
     int nModifierUpdateBlock;
     CAmount nMaxMoneyOut;
-    /*TWINS part */
+    /*FIX part */
     CAmount nTier1mCollateral;
     CAmount nTier1mProbability;
     CAmount nTier5mCollateral;
