@@ -1873,7 +1873,7 @@ int64_t GetBlockValue(int nHeight)
     // First block with initial pre-mine
     if (nHeight < 1) {
         nSubsidy = 500000000 * COIN;
-    } else if (nHeight < ((Params().NetworkID() == CBaseChainParams::MAIN)?10000:1000))  {
+    } else if (nHeight < ((Params().NetworkID() == CBaseChainParams::MAIN)?20000:1000))  {
         nSubsidy = 3 * COIN;
     // Release 15220.70 Fix as a reward for each block
     // until max supply of 100 000 000 000 FIX will
