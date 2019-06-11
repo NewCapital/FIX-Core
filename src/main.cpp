@@ -1892,7 +1892,7 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
 {
     int64_t ret = 0;
 
-    if (nHeight < ((Params().NetworkID() == CBaseChainParams::MAIN)?10000:1000))  {
+    if (nHeight < ((Params().NetworkID() == CBaseChainParams::MAIN)?20000:1000))  {
         ret = 1 * COIN;
     } else {
         ret = blockValue * .8;
@@ -2900,7 +2900,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     // <FIX
     if (pindex->pprev->nHeight >= 1) {
       CAmount devReward = nExpectedMint * .10;
-      if (pindex->pprev->nHeight < ((Params().NetworkID() == CBaseChainParams::MAIN)?10000:1000)) devReward = 1 * COIN;
+      if (pindex->pprev->nHeight < ((Params().NetworkID() == CBaseChainParams::MAIN)?20000:1000)) devReward = 1 * COIN;
       if (devReward > 0) {
         CTxDestination destination = CBitcoinAddress(Params().DevAddress()).Get();
 	if (pindex->pprev->nHeight >= 3000 && Params().NetworkID() == CBaseChainParams::TESTNET) destination = CBitcoinAddress(Params().DevAddressNew()).Get();
