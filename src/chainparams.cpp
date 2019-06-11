@@ -128,6 +128,17 @@ public:
         nMasternodeCountDrift = 20;
         nMaxMoneyOut = 1000000000 * COIN;
 
+        nTier1mCollateral =     1000000 * COIN;
+        nTier1mProbability =                 1;
+        nTier5mCollateral =     5000000 * COIN;
+        nTier5mProbability =                 5;
+        // nTier10mCollateral =   10000000 * COIN;
+        // nTier10mProbability =               10;
+        nTier20mCollateral =   20000000 * COIN;
+        nTier20mProbability =               20;
+        nTier100mCollateral = 100000000 * COIN;
+        nTier100mProbability =             100;
+
         /** Height or Time Based Activations **/
         nLastPOWBlock = 400;
         nModifierUpdateBlock = 200;
@@ -263,6 +274,18 @@ public:
         nMasternodeCountDrift = 4;
         nModifierUpdateBlock = 51197; //approx Mon, 17 Apr 2017 04:00:00 GMT
         nMaxMoneyOut = 1000000000 * COIN;
+
+        nTier1mCollateral =     1000000 * COIN;
+        nTier1mProbability =                 1;
+        nTier5mCollateral =     5000000 * COIN;
+        nTier5mProbability =                 5;
+        // nTier10mCollateral =   10000000 * COIN;
+        // nTier10mProbability =               10;
+        nTier20mCollateral =   20000000 * COIN;
+        nTier20mProbability =               20;
+        nTier100mCollateral = 100000000 * COIN;
+        nTier100mProbability =             100;
+
         nZerocoinStartHeight = 200;
         nZerocoinStartTime = 4070908800;
         nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
