@@ -459,7 +459,6 @@ CMasternode* CMasternodeMan::Find(const CTxIn& vin)
     return NULL;
 }
 
-
 CMasternode* CMasternodeMan::Find(const CPubKey& pubKeyMasternode)
 {
     LOCK(cs);
