@@ -144,11 +144,8 @@ public:
     int nScanningErrorCount;
     int nLastScanningErrorBlockHeight;
     CMasternodePing lastPing;
-	
-	//
 	int wins;
     int64_t lastSigTime;
-	//
 	
     CMasternode();
     CMasternode(const CMasternode& other);
