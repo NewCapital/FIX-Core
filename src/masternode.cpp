@@ -95,11 +95,8 @@ CMasternode::CMasternode()
     nScanningErrorCount = 0;
     nLastScanningErrorBlockHeight = 0;
     lastTimeChecked = 0;
-	
-	//
 	wins = 0;
     lastSigTime = GetAdjustedTime();
-	//
 }
 
 CMasternode::CMasternode(const CMasternode& other)
@@ -123,11 +120,8 @@ CMasternode::CMasternode(const CMasternode& other)
     nScanningErrorCount = other.nScanningErrorCount;
     nLastScanningErrorBlockHeight = other.nLastScanningErrorBlockHeight;
     lastTimeChecked = 0;
-	
-	//
 	wins = other.wins;
     lastSigTime = other.lastSigTime;
-	//
 }
 
 CMasternode::CMasternode(const CMasternodeBroadcast& mnb)
@@ -151,11 +145,8 @@ CMasternode::CMasternode(const CMasternodeBroadcast& mnb)
     nScanningErrorCount = 0;
     nLastScanningErrorBlockHeight = 0;
     lastTimeChecked = 0;
-	
-	//
 	wins = mnb.wins;
     lastSigTime = mnb.lastSigTime;
-	//
 }
 
 //
