@@ -31,7 +31,7 @@ class CMasternodePing;
 extern map<int64_t, uint256> mapCacheBlockHashes;
 
 bool GetBlockHash(uint256& hash, int nBlockHeight);
-static int GetMasternodeTierRounds(CTxIn vin)
+static int GetMasternodeTierRounds(CTxIn vin);
 
 //
 // The Masternode Ping Class : Contains a different serialize method for sending pings from masternodes throughout the network
