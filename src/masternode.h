@@ -175,8 +175,8 @@ public:
         swap(first.nLastDsq, second.nLastDsq);
         swap(first.nScanningErrorCount, second.nScanningErrorCount);
         swap(first.nLastScanningErrorBlockHeight, second.nLastScanningErrorBlockHeight);
-		swap(first.wins, second.wins);
-		swap(first.cyclePaidTime, second.cyclePaidTime);
+        swap(first.wins, second.wins);
+        swap(first.cyclePaidTime, second.cyclePaidTime);
 		
     }
 
@@ -196,11 +196,11 @@ public:
 
     uint256 CalculateScore(int mod = 1, int64_t nBlockHeight = 0);
 	
-	// adds a win to a masternode
-	void addWin();
+    // adds a win to a masternode
+    void addWin();
 	
-	// returns maximum payment cycle wins
-	int getCycleWins();
+    // returns maximum payment cycle wins
+    int getCycleWins();
 
     ADD_SERIALIZE_METHODS;
 
@@ -256,8 +256,8 @@ public:
     {
         sigTime = 0;
         lastPing = CMasternodePing();
-		wins = 0;
-		cyclePaidTime = 0;
+        wins = 0;
+        cyclePaidTime = 0;
     }
 
     bool IsEnabled()
