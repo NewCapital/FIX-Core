@@ -175,8 +175,8 @@ public:
         swap(first.nLastDsq, second.nLastDsq);
         swap(first.nScanningErrorCount, second.nScanningErrorCount);
         swap(first.nLastScanningErrorBlockHeight, second.nLastScanningErrorBlockHeight);
-		swap(first.wins, second.wins);
-		swap(first.cyclePaidTime, second.cyclePaidTime);
+        swap(first.wins, second.wins);
+        swap(first.cyclePaidTime, second.cyclePaidTime);
 		
     }
 
@@ -253,8 +253,8 @@ public:
     {
         sigTime = 0;
         lastPing = CMasternodePing();
-		wins = 0;
-		cyclePaidTime = 0;
+        wins = 0;
+        cyclePaidTime = 0;
     }
 
     bool IsEnabled()
