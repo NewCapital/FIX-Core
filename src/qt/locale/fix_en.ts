@@ -3423,7 +3423,7 @@ To change the percentage (no restart required):
     </message>
     <message>
         <location line="-1324"/>
-        <source>Show zPIV denominations list</source>
+        <source>Show zFIX denominations list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4592,7 +4592,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+26"/>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the PIVX network.</source>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the FIX network.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4905,7 +4905,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+167"/>
-        <source>SwiftX technology allows for near instant transactions - A flat fee of 0.01 PIV applies</source>
+        <source>SwiftX technology allows for near instant transactions - A flat fee of 0.01 FIX applies</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
