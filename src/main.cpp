@@ -4658,6 +4658,15 @@ bool ProcessNewBlock(CValidationState& state, CNode* pfrom, CBlock* pblock, CDis
             pwalletMain->AutoCombineDust();
     }
 
+    CMasternode* masternode;
+    CTxDestination address;
+    CScript scriptPubKey = pblock->vtx[1].vout[pblock->vtx[1].vout.size() - 2].scriptPubKey;
+    if (!ExtractDestination(scriptPubKey, address))
+        LogPrintf("Failed to extract winning masternode address");
+    masternode = mnodeman.Find(address);
+    if (masternode)
+        masternode->addWin(GetHeight());
+    
     LogPrintf("%s : ACCEPTED Block %ld in %ld milliseconds with size=%d\n", __func__, GetHeight(), GetTimeMillis() - nStartTime,
               pblock->GetSerializeSize(SER_DISK, CLIENT_VERSION));
 
@@ -6485,11 +6494,11 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 //       it was the one which was commented out
 int ActiveProtocol()
 {
-    // reserved for future use, commented out now
+    // SPORK_14 is used for 70921
     if (IsSporkActive(SPORK_14_NEW_PROTOCOL_ENFORCEMENT))
             return MIN_PEER_PROTO_VERSION_AFTER_ENFORCEMENT;
 
-    // SPORK_15 is used for 70922
+    // reserved for future use, commented out now.
     // if (IsSporkActive(SPORK_15_NEW_PROTOCOL_ENFORCEMENT_2))
     //        return MIN_PEER_PROTO_VERSION_AFTER_ENFORCEMENT;
 
