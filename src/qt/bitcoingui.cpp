@@ -378,6 +378,13 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
     showShopAction->setCheckable(false);
     tabGroup->addAction(showShopAction);
 
+    //Init Shop Action
+    showCommunityAction= new QAction(QIcon(":/icons/community"), tr("&Community"), this);
+    showCommunityAction->setStatusTip(tr("Open community page"));
+    showCommunityAction->setToolTip(historyAction->statusTip());
+    showCommunityAction->setCheckable(false);
+    tabGroup->addAction(showCommunityAction);
+
     //Init Stat Action
     showStatisticsAction = new QAction(QIcon(":/icons/stats"), tr("&Statistics"), this);
     showStatisticsAction->setStatusTip(tr("Open FIX statistics"));
@@ -406,6 +413,8 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 
     connect(showShopAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(showShopAction, SIGNAL(triggered()), this, SLOT(gotoShopPage()));
+    connect(showCommunityAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+    connect(showCommunityAction, SIGNAL(triggered()), this, SLOT(gotoCommunityPage()));
     connect(showStatisticsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(showStatisticsAction, SIGNAL(triggered()), this, SLOT(gotoStatisticsPage()));
 #endif // ENABLE_WALLET
@@ -599,6 +608,7 @@ void BitcoinGUI::createToolBars()
         toolbar->addSeparator();
 
         toolbar->addAction(showShopAction);
+        toolbar->addAction(showCommunityAction);
         toolbar->addAction(showStatisticsAction);
 
         toolbar->setMovable(false); // remove unused icon in upper left corner
@@ -869,6 +879,12 @@ void BitcoinGUI::gotoShopPage()
 {
     QDesktopServices::openUrl(QUrl("https://fix.network/t/categories", QUrl::TolerantMode));
     showShopAction->setChecked(false);
+}
+
+void BitcoinGUI::gotoCommunityPage()
+{
+    QDesktopServices::openUrl(QUrl("https://new.capital", QUrl::TolerantMode));
+    showCommunityAction->setChecked(false);
 }
 
 void BitcoinGUI::gotoStatisticsPage()
