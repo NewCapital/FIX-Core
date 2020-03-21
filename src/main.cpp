@@ -3933,6 +3933,15 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
         for (unsigned int i = 2; i < block.vtx.size(); i++)
             if (block.vtx[i].IsCoinStake())
                 return state.DoS(100, error("CheckBlock() : more than one coinstake"));
+
+        CBlockIndex* pindex = chainActive.Tip();
+        int nHeight = pindex->nHeight;
+        // Ensure the output of the stake is above min amount (20000 for TWINS)
+        if (IsSporkActive(SPORK_FIX_02_MIN_STAKE_AMT && nHeight >= 300000)) {
+
+            if (block.vtx[1].vout[1].nValue < Params().StakingMinInput())
+                return state.DoS(100, error("CheckBlock() : stake under min. stake value"));
+        }
     }
 
     // ----------- swiftTX transaction scanning -----------
@@ -4680,7 +4689,7 @@ bool ProcessNewBlock(CValidationState& state, CNode* pfrom, CBlock* pblock, CDis
 		if (masternode)
 			masternode->addWin(GetHeight());
 	}
-    
+
     LogPrintf("%s : ACCEPTED Block %ld in %ld milliseconds with size=%d\n", __func__, GetHeight(), GetTimeMillis() - nStartTime,
               pblock->GetSerializeSize(SER_DISK, CLIENT_VERSION));
 
