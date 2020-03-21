@@ -3936,7 +3936,7 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
 
         CBlockIndex* pindex = chainActive.Tip();
         int nHeight = pindex->nHeight;
-        // Ensure the output of the stake is above min amount (20000 for TWINS)
+        // Ensure the output of the stake is above min amount
         if (IsSporkActive(SPORK_FIX_02_MIN_STAKE_AMOUNT &&
               nHeight >= (Params().NetworkID() == CBaseChainParams::MAIN? 215600 : 220000) )) {
 
