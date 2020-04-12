@@ -329,8 +329,8 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
 
-        vSeeds.push_back(CDNSSeedData("18.228.216.158", "18.228.216.158")); //Brazil
-        vSeeds.push_back(CDNSSeedData("13.210.111.12", "13.210.111.12"));   //Australia
+        // vSeeds.push_back(CDNSSeedData("18.228.216.158", "18.228.216.158")); //Brazil
+        // vSeeds.push_back(CDNSSeedData("13.210.111.12", "13.210.111.12"));   //Australia
         vSeeds.push_back(CDNSSeedData("46.19.210.197", "46.19.210.197"));   //Germany
         vSeeds.push_back(CDNSSeedData("46.19.214.68", "46.19.214.68"));     //Singapore
         vSeeds.push_back(CDNSSeedData("142.93.145.197", "142.93.145.197")); //Toronto
