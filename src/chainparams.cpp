@@ -200,8 +200,8 @@ public:
         assert(hashGenesisBlock == uint256("0x000000428366d3a156c38c5061d74317d201781f539460aeeeaae1091de6e4cc"));
         assert(genesis.hashMerkleRoot == uint256("0x17d377a8a6d988698164f5fc9ffa8d5d03d0d1187e3a0ed886c239b3eae4be2f"));
 
-        vSeeds.push_back(CDNSSeedData("18.228.216.158", "18.228.216.158")); //Brazil
-        vSeeds.push_back(CDNSSeedData("13.210.111.12", "13.210.111.12"));   //Australia
+        // vSeeds.push_back(CDNSSeedData("18.228.216.158", "18.228.216.158")); //Brazil
+        // vSeeds.push_back(CDNSSeedData("13.210.111.12", "13.210.111.12"));   //Australia
         vSeeds.push_back(CDNSSeedData("46.19.210.197", "46.19.210.197"));   //Germany
         vSeeds.push_back(CDNSSeedData("46.19.214.68", "46.19.214.68"));     //Singapore
         vSeeds.push_back(CDNSSeedData("142.93.145.197", "142.93.145.197")); //Toronto
