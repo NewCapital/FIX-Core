@@ -3937,8 +3937,8 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
         CBlockIndex* pindex = chainActive.Tip();
         int nHeight = pindex->nHeight;
         // Ensure the output of the stake is above min amount
-        if (IsSporkActive(SPORK_FIX_02_MIN_STAKE_AMOUNT &&
-              nHeight >= (Params().NetworkID() == CBaseChainParams::MAIN? 223000 : 192500) )) {
+        if (IsSporkActive(SPORK_FIX_02_MIN_STAKE_AMOUNT) &&
+              (nHeight >= (Params().NetworkID() == CBaseChainParams::MAIN? 223000 : 192500) )) {
 
             if (block.vtx[1].vout[1].nValue < Params().StakingMinInput())
                 return state.DoS(100, error("CheckBlock() : stake under min. stake value"));
