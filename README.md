@@ -11,7 +11,7 @@ Stage 3: NEM Catapult Fork (Proof of Stake)
 
 MAX Supply: 100B FIX
 
-Collateral: 1M FIX
+Collateral: 1M, 5M, 20M, 100M FIX
 
 Blocktime: 120 Sec
 
