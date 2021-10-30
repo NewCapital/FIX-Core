@@ -1887,14 +1887,40 @@ int64_t GetBlockValue(int nHeight)
     } else if (nHeight < ((Params().NetworkID() == CBaseChainParams::MAIN)?20000:1000))  {
         nSubsidy = 3 * COIN;
     // Release 15220.70 Fix as a reward for each block
-    // until max supply of 100 000 000 000 FIX will
-    // be mathematically reachet at block 6547149.
-    } else if (nHeight < 6547150)  {
+    // until block 633333 (approximatelly 28.11.2021)
+    } else if (nHeight < 633333)  {
         nSubsidy = 15220.70 * COIN;
 
-    } else {
-        nSubsidy = 0;
-    }
+      // Phasing out inflation...
+      } else if (nHeight < 638888)  {
+        nSubsidy = 8000 * COIN;
+      } else if (nHeight < 644444)  {
+        nSubsidy = 4000 * COIN;
+      } else if (nHeight < 649999)  {
+        nSubsidy = 2000 * COIN;
+      } else if (nHeight < 655555)  {
+        nSubsidy = 1000 * COIN;
+      } else if (nHeight < 661111)  {
+        nSubsidy = 500 * COIN;
+      } else if (nHeight < 666669)  {
+        nSubsidy = 250 * COIN;
+      } else if (nHeight < 672222)  {
+        nSubsidy = 125 * COIN;
+      } else if (nHeight < 677777)  {
+        nSubsidy = 60 * COIN;
+      } else if (nHeight < 683333)  {
+        nSubsidy = 30 * COIN;
+      } else if (nHeight < 688888)  {
+        nSubsidy = 15 * COIN;
+      } else if (nHeight < 694444)  {
+        nSubsidy = 8 * COIN;
+      } else if (nHeight < 699999)  {
+        nSubsidy = 4 * COIN;
+      } else if (nHeight < 6569605)  {
+        nSubsidy = 2 * COIN;
+      } else {
+          nSubsidy = 0;
+      }
 
     return nSubsidy;
 }
