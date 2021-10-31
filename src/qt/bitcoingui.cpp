@@ -877,7 +877,7 @@ void BitcoinGUI::gotoSendCoinsPage(QString addr)
 
 void BitcoinGUI::gotoShopPage()
 {
-    QDesktopServices::openUrl(QUrl("https://fix.network/t/categories", QUrl::TolerantMode));
+    QDesktopServices::openUrl(QUrl("https://shop.new.capital/collections/fix-network", QUrl::TolerantMode));
     showShopAction->setChecked(false);
 }
 
