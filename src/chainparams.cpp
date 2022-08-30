@@ -220,17 +220,17 @@ public:
         assert(hashGenesisBlock == uint256("0x000000428366d3a156c38c5061d74317d201781f539460aeeeaae1091de6e4cc"));
         assert(genesis.hashMerkleRoot == uint256("0x17d377a8a6d988698164f5fc9ffa8d5d03d0d1187e3a0ed886c239b3eae4be2f"));
 
-        // vSeeds.push_back(CDNSSeedData("18.228.216.158", "18.228.216.158")); //Brazil
-        // vSeeds.push_back(CDNSSeedData("13.210.111.12", "13.210.111.12"));   //Australia
-        vSeeds.push_back(CDNSSeedData("46.19.210.197", "46.19.210.197"));   //Germany
-        vSeeds.push_back(CDNSSeedData("46.19.214.68", "46.19.214.68"));     //Singapore
-        vSeeds.push_back(CDNSSeedData("142.93.145.197", "142.93.145.197")); //Toronto
-        vSeeds.push_back(CDNSSeedData("159.65.84.118", "159.65.84.118"));   //London
-        vSeeds.push_back(CDNSSeedData("167.99.223.138", "167.99.223.138")); //Amsterdam
-        vSeeds.push_back(CDNSSeedData("68.183.161.44", "68.183.161.44"));   //San Fransisco
-        vSeeds.push_back(CDNSSeedData("46.19.212.68", "46.19.212.68"));     //LA
-        vSeeds.push_back(CDNSSeedData("46.19.213.68", "46.19.213.68"));     //Miami
-        vSeeds.push_back(CDNSSeedData("46.19.209.68", "46.19.209.68"));     //New York
+        vSeeds.push_back(CDNSSeedData("45.77.64.171", "45.77.64.171"));   //Germany
+        vSeeds.push_back(CDNSSeedData("67.219.107.45", "67.219.107.45")); //Australia
+        vSeeds.push_back(CDNSSeedData("104.238.185.162", "104.238.185.162")); //UK
+        vSeeds.push_back(CDNSSeedData("208.85.21.121", "208.85.21.121")); //Spain
+        vSeeds.push_back(CDNSSeedData("45.77.118.66", "45.77.118.66")); //FL
+        vSeeds.push_back(CDNSSeedData("65.20.69.84", "65.20.69.84"));   //IN
+        vSeeds.push_back(CDNSSeedData("140.82.15.118", "140.82.15.118")); //NJ
+        vSeeds.push_back(CDNSSeedData("158.247.239.189", "158.247.239.189"));   //SK
+        vSeeds.push_back(CDNSSeedData("216.128.182.65", "216.128.182.65"));   //CA
+        vSeeds.push_back(CDNSSeedData("149.28.149.146", "149.28.149.146"));   //Singapore
+        vSeeds.push_back(CDNSSeedData("45.32.36.145", "45.32.36.145"));   //Japan
 
         devAddress = "FCoB1M2CxxN1fAezRAZC31AWtMBZ3zSvyF";
 
