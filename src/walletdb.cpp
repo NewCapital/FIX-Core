@@ -1058,16 +1058,19 @@ bool AttemptBackupWallet(const CWallet& wallet, const filesystem::path& pathSrc,
             LogPrintf("cannot backup to wallet source file %s\n", pathDest.string());
             return false;
         }
-#if BOOST_VERSION >= 105800 /* BOOST_LIB_VERSION 1_58 */
-        filesystem::copy_file(pathSrc.c_str(), pathDest, filesystem::copy_options::overwrite_existing);
+#if BOOST_VERSION >= 106500 // Boost 1.65.0 and above
+    filesystem::copy_file(pathSrc.c_str(), pathDest, filesystem::copy_options::overwrite_existing);
+#elif BOOST_VERSION >= 105600 // Boost 1.56.0 up to <1.65.0
+    filesystem::copy_file(pathSrc.c_str(), pathDest, filesystem::copy_option::overwrite_if_exists);
 #else
-        std::ifstream src(pathSrc.c_str(),  std::ios::binary | std::ios::in);
-        std::ofstream dst(pathDest.c_str(), std::ios::binary | std::ios::out | std::ios::trunc);
-        dst << src.rdbuf();
-        dst.flush();
-        src.close();
-        dst.close();
+    std::ifstream src(pathSrc.c_str(),  std::ios::binary | std::ios::in);
+    std::ofstream dst(pathDest.c_str(), std::ios::binary | std::ios::out | std::ios::trunc);
+    dst << src.rdbuf();
+    dst.flush();
+    src.close();
+    dst.close();
 #endif
+
         strMessage = strprintf("copied wallet.dat to %s\n", pathDest.string());
         LogPrint(nullptr, strMessage.data());
         retStatus = true;
