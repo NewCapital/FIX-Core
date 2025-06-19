@@ -381,7 +381,7 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageOpt("-datadir=<dir>", _("Specify data directory"));
     strUsage += HelpMessageOpt("-dbcache=<n>", strprintf(_("Set database cache size in megabytes (%d to %d, default: %d)"), nMinDbCache, nMaxDbCache, nDefaultDbCache));
     strUsage += HelpMessageOpt("-loadblock=<file>", _("Imports blocks from external blk000??.dat file") + " " + _("on startup"));
-    strUsage += HelpMessageOpt("-maxreorg=<n>", strprintf(_("Set the Maximum reorg depth (default: %u)"), Params(CBaseChainParams::MAIN).MaxReorganizationDepth()));
+    strUsage += HelpMessageOpt("-maxreorg=<n>", strprintf(_("Set the Maximum reorg depth (default: %u)"), 100));
     strUsage += HelpMessageOpt("-maxorphantx=<n>", strprintf(_("Keep at most <n> unconnectable transactions in memory (default: %u)"), DEFAULT_MAX_ORPHAN_TRANSACTIONS));
     strUsage += HelpMessageOpt("-par=<n>", strprintf(_("Set the number of script verification threads (%u to %d, 0 = auto, <0 = leave that many cores free, default: %d)"), -(int)boost::thread::hardware_concurrency(), MAX_SCRIPTCHECK_THREADS, DEFAULT_SCRIPTCHECK_THREADS));
 #ifndef WIN32
@@ -481,8 +481,8 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageGroup(_("Debugging/Testing options:"));
     strUsage += HelpMessageOpt("-uacomment=<cmt>", _("Append comment to the user agent string"));
     if (GetBoolArg("-help-debug", false)) {
-        strUsage += HelpMessageOpt("-checkblockindex", strprintf("Do a full consistency check for mapBlockIndex, setBlockIndexCandidates, chainActive and mapBlocksUnlinked occasionally. Also sets -checkmempool (default: %u)", Params(CBaseChainParams::MAIN).DefaultConsistencyChecks()));
-        strUsage += HelpMessageOpt("-checkmempool=<n>", strprintf("Run checks every <n> transactions (default: %u)", Params(CBaseChainParams::MAIN).DefaultConsistencyChecks()));
+        strUsage += HelpMessageOpt("-checkblockindex", strprintf("Do a full consistency check for mapBlockIndex, setBlockIndexCandidates, chainActive and mapBlocksUnlinked occasionally. Also sets -checkmempool (default: %u)", 0));
+        strUsage += HelpMessageOpt("-checkmempool=<n>", strprintf("Run checks every <n> transactions (default: %u)", 0));
         strUsage += HelpMessageOpt("-checkpoints", strprintf(_("Only accept block chain matching built-in checkpoints (default: %u)"), 1));
         strUsage += HelpMessageOpt("-dblogsize=<n>", strprintf(_("Flush database activity from memory pool to disk log every <n> megabytes (default: %u)"), 100));
         strUsage += HelpMessageOpt("-disablesafemode", strprintf(_("Disable safemode, override a real safe mode event (default: %u)"), 0));
@@ -806,6 +806,11 @@ bool AppInit2()
     fLogTimestamps = GetBoolArg("-logtimestamps", true);
     fLogIPs = GetBoolArg("-logips", false);
 
+    // Call SelectBaseParamsFromCommandLine() early, before it's needed by GetDataDir() or GetConfigFile()
+    if (!SelectBaseParamsFromCommandLine()) {
+        return InitError("Error: Invalid combination of -regtest and -testnet.");
+    }
+
     if (mapArgs.count("-bind") || mapArgs.count("-whitebind")) {
         // when specifying an explicit binding address, you want to listen on it
         // even when -connect or -proxy is specified
@@ -914,8 +919,16 @@ bool AppInit2()
         InitWarning(_("Warning: Unsupported argument -benchmark ignored, use -debug=bench."));
 
     // Checkmempool and checkblockindex default to true in regtest mode
-    mempool.setSanityCheck(GetBoolArg("-checkmempool", Params().DefaultConsistencyChecks()));
-    fCheckBlockIndex = GetBoolArg("-checkblockindex", Params().DefaultConsistencyChecks());
+    // Use default values if params aren't initialized yet (during help message generation)
+    bool defaultConsistencyChecks = false; // Default for mainnet
+    try {
+        // Try to get the actual value, but fall back to default if not initialized
+        defaultConsistencyChecks = Params().DefaultConsistencyChecks();
+    } catch (...) {
+        // Parameters not initialized yet, use mainnet default
+    }
+    mempool.setSanityCheck(GetBoolArg("-checkmempool", defaultConsistencyChecks));
+    fCheckBlockIndex = GetBoolArg("-checkblockindex", defaultConsistencyChecks);
     Checkpoints::fEnabled = GetBoolArg("-checkpoints", true);
 
     // -par=0 means autodetect, but nScriptCheckThreads==0 means no concurrency
@@ -1021,21 +1034,22 @@ bool AppInit2()
     std::string strDataDir = GetDataDir().string();
 #ifdef ENABLE_WALLET
     // Wallet file must be a plain filename without a directory
-    if (strWalletFile != boost::filesystem::basename(strWalletFile) + boost::filesystem::extension(strWalletFile))
+    if (strWalletFile != boost::filesystem::path(strWalletFile).filename().string())
         return InitError(strprintf(_("Wallet %s resides outside data directory %s"), strWalletFile, strDataDir));
 #endif
     // Make sure only a single FIX process is using the data directory.
+    // Moved SelectBaseParamsFromCommandLine() earlier, so GetDataDir() is safe to call now.
     boost::filesystem::path pathLockFile = GetDataDir() / ".lock";
     FILE* file = fopen(pathLockFile.string().c_str(), "a"); // empty lock file; created if it doesn't exist.
     if (file) fclose(file);
-    static boost::interprocess::file_lock lock(pathLockFile.string().c_str());
+    static boost::interprocess::file_lock dirFileLock(pathLockFile.string().c_str()); // Renamed lock to dirFileLock
 
     // Wait maximum 10 seconds if an old wallet is still running. Avoids lockup during restart
-    if (!lock.timed_lock(boost::get_system_time() + boost::posix_time::seconds(10)))
+    if (!dirFileLock.timed_lock(boost::get_system_time() + boost::posix_time::seconds(10))) // Renamed lock to dirFileLock
         return InitError(strprintf(_("Cannot obtain a lock on data directory %s. FIX Core is probably already running."), strDataDir));
 
 #ifndef WIN32
-    CreatePidFile(GetPidFile(), getpid());
+    CreatePidFile(GetPidFile(), getpid()); // Moved SelectBaseParamsFromCommandLine() earlier
 #endif
     if (GetBoolArg("-shrinkdebugfile", !fDebug))
         ShrinkDebugFile();
@@ -1085,6 +1099,17 @@ bool AppInit2()
 // ********************************************************* Step 5: Backup wallet and verify wallet database integrity
 #ifdef ENABLE_WALLET
     if (!fDisableWallet) {
+        // Read configuration file. Override with command-line arguments.
+        // Moved SelectBaseParamsFromCommandLine() before this, so GetConfigFile()->GetDataDir() is safe.
+        ReadConfigFile(mapArgs, mapMultiArgs);
+        // Check for -testnet or -regtest parameter (Params() calls are only valid after this clause)
+        try {
+            SelectParams(Params().NetworkID());
+        } catch (const std::exception& e) {
+            fprintf(stderr, "Error: %s\n", e.what());
+            return false;
+        }
+
         filesystem::path backupDir = GetDataDir() / "backups";
         if (!filesystem::exists(backupDir)) {
             // Always create backup folder to not confuse the operating system's file browser

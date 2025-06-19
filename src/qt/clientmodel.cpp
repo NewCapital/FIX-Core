@@ -23,6 +23,9 @@
 #include "ui_interface.h"
 #include "util.h"
 
+#include <boost/bind/bind.hpp>
+using namespace boost::placeholders;
+
 #include <stdint.h>
 
 #include <QDateTime>

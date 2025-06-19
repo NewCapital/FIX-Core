@@ -35,6 +35,9 @@
 #include "ui_interface.h"
 #include "util.h"
 
+#include <boost/bind/bind.hpp>
+using namespace boost::placeholders;
+
 #include <iostream>
 
 #include <QAction>
@@ -889,7 +892,7 @@ void BitcoinGUI::gotoCommunityPage()
 
 void BitcoinGUI::gotoStatisticsPage()
 {
-    QDesktopServices::openUrl(QUrl("https://chain.review/explorer/fix", QUrl::TolerantMode));
+    QDesktopServices::openUrl(QUrl("https://explorer.fix.network", QUrl::TolerantMode));
     showStatisticsAction->setChecked(false);
 }
 void BitcoinGUI::gotoSignMessageTab(QString addr)

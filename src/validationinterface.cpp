@@ -1,11 +1,19 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin Core developers
-// Copyright (c) 2017 The PIVX developers
+// Copyright (c) 2009-2014 The Bitcoin developers
+// Copyright (c) 2015-2018 The PIVX developers
 // Copyright (c) 2019 The FIX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#define BOOST_BIND_GLOBAL_PLACEHOLDERS
+
 #include "validationinterface.h"
+
+#include "init.h"
+#include <boost/bind/bind.hpp>
+
+// Make Boost Bind placeholders available
+using namespace boost::placeholders;
 
 static CMainSignals g_signals;
 

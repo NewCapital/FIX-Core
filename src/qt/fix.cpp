@@ -547,6 +547,16 @@ int main(int argc, char* argv[])
     // Show help message immediately after parsing command-line options (for "-lang") and setting locale,
     // but before showing splash screen.
     if (mapArgs.count("-?") || mapArgs.count("-help") || mapArgs.count("-version")) {
+        // For GUI help, we need to initialize parameters first to avoid crashes
+        if (!SelectBaseParamsFromCommandLine()) {
+            fprintf(stderr, "Error: Invalid combination of -regtest and -testnet.\n");
+            return 1;
+        }
+        if (!SelectParamsFromCommandLine()) {
+            fprintf(stderr, "Error: Invalid combination of -regtest and -testnet.\n");
+            return 1;
+        }
+        
         HelpMessageDialog help(NULL, mapArgs.count("-version"));
         help.showOrPrint();
         return 1;
@@ -557,7 +567,14 @@ int main(int argc, char* argv[])
     if (!Intro::pickDataDirectory())
         return 0;
 
-    /// 6. Determine availability of data directory and parse fix.conf
+    /// 6. Initialize base parameters early (needed for GetDataDir)
+    // This must be done before ReadConfigFile() which calls GetDataDir() -> BaseParams()
+    if (!SelectBaseParamsFromCommandLine()) {
+        QMessageBox::critical(0, QObject::tr("FIX Core"), QObject::tr("Error: Invalid combination of -regtest and -testnet."));
+        return 1;
+    }
+
+    /// 7. Determine availability of data directory and parse fix.conf
     /// - Do not call GetDataDir(true) before this step finishes
     if (!boost::filesystem::is_directory(GetDataDir(false))) {
         QMessageBox::critical(0, QObject::tr("FIX Core"),
@@ -572,13 +589,14 @@ int main(int argc, char* argv[])
         return 0;
     }
 
-    /// 7. Determine network (and switch to network specific options)
+    /// 8. Determine network (and switch to network specific options)
     // - Do not call Params() before this step
     // - Do this after parsing the configuration file, as the network can be switched there
     // - QSettings() will use the new application name after this, resulting in network-specific settings
     // - Needs to be done before createOptionsModel
 
     // Check for -testnet or -regtest parameter (Params() calls are only valid after this clause)
+    // Note: SelectBaseParamsFromCommandLine() was already called earlier, now we need the full params
     if (!SelectParamsFromCommandLine()) {
         QMessageBox::critical(0, QObject::tr("FIX Core"), QObject::tr("Error: Invalid combination of -regtest and -testnet."));
         return 1;
@@ -596,7 +614,7 @@ int main(int argc, char* argv[])
     initTranslations(qtTranslatorBase, qtTranslator, translatorBase, translator);
 
 #ifdef ENABLE_WALLET
-    /// 7a. parse masternode.conf
+    /// 8a. parse masternode.conf
     string strErr;
     if (!masternodeConfig.read(strErr)) {
         QMessageBox::critical(0, QObject::tr("FIX Core"),
@@ -604,7 +622,7 @@ int main(int argc, char* argv[])
         return 0;
     }
 
-    /// 8. URI IPC sending
+    /// 9. URI IPC sending
     // - Do this early as we don't want to bother initializing if we are just calling IPC
     // - Do this *after* setting up the data directory, as the data directory hash is used in the name
     // of the server.
@@ -618,7 +636,7 @@ int main(int argc, char* argv[])
     app.createPaymentServer();
 #endif
 
-    /// 9. Main GUI initialization
+    /// 10. Main GUI initialization
     // Install global event filter that makes sure that long tooltips can be word-wrapped
     app.installEventFilter(new GUIUtil::ToolTipToRichTextFilter(TOOLTIP_WRAP_THRESHOLD, &app));
 #if defined(Q_OS_WIN)

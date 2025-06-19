@@ -2,10 +2,10 @@ dnl require autoconf 2.60 (AS_ECHO/AS_ECHO_N)
 AC_PREREQ([2.60])
 define(_CLIENT_VERSION_MAJOR, 3)
 define(_CLIENT_VERSION_MINOR, 3)
-define(_CLIENT_VERSION_REVISION, 9)
-define(_CLIENT_VERSION_BUILD, 5)
+define(_CLIENT_VERSION_REVISION, 10)
+define(_CLIENT_VERSION_BUILD, 0)
 define(_CLIENT_VERSION_IS_RELEASE, true)
-define(_COPYRIGHT_YEAR, 2020)
+define(_COPYRIGHT_YEAR, 2025)
 AC_INIT([FIX Core],[_CLIENT_VERSION_MAJOR._CLIENT_VERSION_MINOR._CLIENT_VERSION_REVISION],[fix.network],[fix])
 AC_CONFIG_SRCDIR([src/main.cpp])
 AC_CONFIG_HEADERS([src/config/fix-config.h])
@@ -60,6 +60,7 @@ case $host in
 esac
 dnl Require C++11 compiler (no GNU extensions)
 AX_CXX_COMPILE_STDCXX([11], [noext], [mandatory], [nodefault])
+
 dnl Check if -latomic is required for <std::atomic>
 CHECK_ATOMIC
 

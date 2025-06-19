@@ -52,6 +52,28 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
         if (nActualSpacing < 0)
             nActualSpacing = 1;
 
+        // Emergency difficulty drop if blocks are taking too long (more than 10x target)
+        // This helps unstick the network when difficulty is too high
+        // IMPORTANT: This activates at block 1487458 to ensure all nodes have the same consensus rules
+        if (pblock && pindexLast->GetBlockTime() > 0 && pindexLast->nHeight >= 1487457) {
+            int64_t nTimeSinceLastBlock = pblock->GetBlockTime() - pindexLast->GetBlockTime();
+            if (nTimeSinceLastBlock > nTargetSpacing * 10) {
+                // Drop difficulty significantly to help produce a block
+                uint256 bnEmergency;
+                bnEmergency.SetCompact(pindexLast->nBits);
+                // Increase target (lower difficulty) by 4x for every 10x delay
+                int64_t nMultiplier = nTimeSinceLastBlock / (nTargetSpacing * 10);
+                for (int i = 0; i < nMultiplier && i < 10; i++) {
+                    bnEmergency = bnEmergency << 2; // Multiply by 4
+                }
+                if (bnEmergency > bnTargetLimit)
+                    bnEmergency = bnTargetLimit;
+                LogPrintf("GetNextWorkRequired: Emergency difficulty drop activated at height %d. Time since last block: %d seconds, new target: %s\n", 
+                          pindexLast->nHeight + 1, nTimeSinceLastBlock, bnEmergency.GetHex());
+                return bnEmergency.GetCompact();
+            }
+        }
+
         // ppcoin: target change every block
         // ppcoin: retarget with exponential moving toward target spacing
         uint256 bnNew;

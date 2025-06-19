@@ -26,6 +26,8 @@
 
 using namespace std;
 
+typedef std::pair<std::string, std::string> StringPair;
+
 QString TransactionDesc::FormatTxStatus(const CWalletTx& wtx)
 {
     AssertLockHeld(cs_main);
@@ -255,14 +257,14 @@ QString TransactionDesc::toHTML(CWallet* wallet, CWalletTx& wtx, TransactionReco
     strHTML += "<b>" + tr("Output index") + ":</b> " + QString::number(rec->getOutputIndex()) + "<br>";
 
     // Message from normal fix:URI (fix:XyZ...?message=example)
-    foreach (const PAIRTYPE(string, string) & r, wtx.vOrderForm)
+    foreach (const StringPair & r, wtx.vOrderForm)
         if (r.first == "Message")
             strHTML += "<br><b>" + tr("Message") + ":</b><br>" + GUIUtil::HtmlEscape(r.second, true) + "<br>";
 
     //
     // PaymentRequest info:
     //
-    foreach (const PAIRTYPE(string, string) & r, wtx.vOrderForm) {
+    foreach (const StringPair & r, wtx.vOrderForm) {
         if (r.first == "PaymentRequest") {
             PaymentRequestPlus req;
             req.parse(QByteArray::fromRawData(r.second.data(), r.second.size()));

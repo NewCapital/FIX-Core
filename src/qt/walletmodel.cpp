@@ -21,6 +21,10 @@
 #include "ui_interface.h"
 #include "wallet.h"
 #include "walletdb.h" // for BackupWallet
+
+#include <boost/bind/bind.hpp>
+using namespace boost::placeholders;
+
 #include <stdint.h>
 
 #include <QDebug>

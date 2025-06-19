@@ -4075,6 +4075,27 @@ bool CheckWork(const CBlock block, CBlockIndex* const pindexPrev)
         return true;
     }
 
+    // Special case: Accept emergency difficulty adjustment blocks
+    // This allows the network to recover from being stuck
+    if (block.IsProofOfStake() && pindexPrev->nHeight >= 1487457) {
+        // Check if this could be an emergency difficulty adjustment
+        int64_t nTimeSinceLastBlock = block.GetBlockTime() - pindexPrev->GetBlockTime();
+        if (nTimeSinceLastBlock > 120 * 10) { // More than 20 minutes
+            // Accept blocks with easier difficulty during emergency
+            uint256 bnRequired;
+            bnRequired.SetCompact(nBitsRequired);
+            uint256 bnActual;
+            bnActual.SetCompact(block.nBits);
+            
+            // Block difficulty should be easier (higher target value) than required
+            if (bnActual >= bnRequired) {
+                LogPrintf("CheckWork: Accepting emergency difficulty block at height %d, time since last: %d seconds\n", 
+                          pindexPrev->nHeight + 1, nTimeSinceLastBlock);
+                return true;
+            }
+        }
+    }
+
     if (block.nBits != nBitsRequired)
         return error("%s : incorrect proof of work at %d", __func__, pindexPrev->nHeight + 1);
 
